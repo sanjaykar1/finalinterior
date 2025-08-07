@@ -17,7 +17,7 @@ import {
   getDocs,
   query,
   updateDoc,
-  doc
+  doc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -25,10 +25,24 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
-import { Textarea } from "../components/ui/textarea";
-import { Card, CardContent } from "../components/ui/card";
+
+// Inline UI components to replace missing imports
+const Input = (props) => <input {...props} className={`p-2 border rounded ${props.className || ''}`} />;
+const Button = ({ children, onClick, className = '', variant }) => (
+  <button
+    onClick={onClick}
+    className={`px-4 py-2 rounded font-semibold ${
+      variant === 'outline'
+        ? 'border border-blue-600 text-blue-600 hover:bg-blue-50'
+        : 'text-white bg-blue-600 hover:bg-blue-700'
+    } ${className}`}
+  >
+    {children}
+  </button>
+);
+const Textarea = (props) => <textarea {...props} className={`p-2 border rounded ${props.className || ''}`} />;
+const Card = ({ children, className = '' }) => <div className={`bg-white rounded-lg p-4 ${className}`}>{children}</div>;
+const CardContent = ({ children, className = '' }) => <div className={className}>{children}</div>;
 
 const firebaseConfig = {
   apiKey: "AIzaSyAlbbfGsOexu2NGRbhKfBX3dBn7ypn6Yks",
